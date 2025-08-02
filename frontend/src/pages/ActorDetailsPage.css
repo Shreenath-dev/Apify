@@ -1,0 +1,111 @@
+/* ActorDetailPage.css */
+
+.accordion-container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #1e1e1e;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  color: #f0f0f0;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.accordion-header {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 30px;
+  color: #ffffff;
+}
+
+.accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.accordion-item {
+  background-color: #2c2c2c;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.accordion-title {
+  display: flex;
+  align-items: center;
+  padding: 14px 20px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 16px;
+  background: linear-gradient(to right, #3a3f58, #2b2f40);
+}
+
+.accordion-title:hover {
+  background: linear-gradient(to right, #3f4a6b, #2c3147);
+}
+
+.accordion-arrow {
+  margin-right: 12px;
+  color: #80b3ff;
+  font-size: 18px;
+  transition: transform 0.3s ease;
+}
+
+.accordion-key {
+  flex: 1;
+  color: #ffffff;
+  text-transform: capitalize;
+}
+
+.accordion-content {
+  padding: 15px 25px;
+  background-color: #1b1b1b;
+  border-top: 1px solid #333;
+  animation: fadeIn 0.3s ease;
+}
+
+.custom-list,
+.custom-sublist {
+  padding-left: 20px;
+  margin: 5px 0;
+  list-style-type: disc;
+}
+
+.custom-sublist li,
+.custom-list li {
+  margin-bottom: 6px;
+}
+
+.actor-key-sub {
+  font-weight: 500;
+  color: #aad4ff;
+}
+
+.actor-value {
+  color: #e0e0e0;
+  font-style: italic;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-3px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .accordion-title {
+    font-size: 14px;
+  }
+
+  .accordion-content {
+    font-size: 14px;
+  }
+}
