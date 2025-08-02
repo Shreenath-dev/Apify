@@ -109,3 +109,28 @@
     font-size: 14px;
   }
 }
+
+.run-button-wrapper {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.run-actor-button {
+  padding: 12px 24px;
+  font-size: 16px;
+  background-color: #0a74da;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.run-actor-button:hover {
+  background-color: #095aba;
+}
+
+.run-actor-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}

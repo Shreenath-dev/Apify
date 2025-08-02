@@ -32,6 +32,7 @@ const ActorDetailPage = () => {
   const { actorId } = useParams();
   const [actor, setActor] = useState(null);
   const [expandedKeys, setExpandedKeys] = useState({});
+  const [running, setRunning] = useState(false);
 
   useEffect(() => {
     const fetchActor = async () => {
@@ -53,25 +54,61 @@ const ActorDetailPage = () => {
     setExpandedKeys((prev) => ({ ...prev, [key]: !prev[key] }));
   };
 
+  const handleRunActor = async () => {
+    try {
+      setRunning(true);
+      const res = await axios.post(
+        `http://localhost:5000/api/v1/actor/actor-run/${actorId}`,
+        {},
+        {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      alert('Actor run started successfully!');
+      console.log('Run response:', res.data);
+    } catch (error) {
+      console.error('Failed to run actor:', error);
+      alert('Error running the actor. Check console for details.');
+    } finally {
+      setRunning(false);
+    }
+  };
+
   return (
     <div className="accordion-container">
       <h2 className="accordion-header">Actor Details</h2>
       {actor ? (
-        <div className="accordion">
-          {Object.entries(actor).map(([key, value]) => (
-            <div key={key} className="accordion-item">
-              <div className="accordion-title" onClick={() => toggleKey(key)}>
-                <span className="accordion-arrow">{expandedKeys[key] ? '▲' : '▼'}</span>
-                <span className="accordion-key">{key.replace(/([a-z])([A-Z])/g, '$1 $2')}</span>
-              </div>
-              {expandedKeys[key] && (
-                <div className="accordion-content">
-                  {formatValue(value)}
+        <>
+          <div className="accordion">
+            {Object.entries(actor).map(([key, value]) => (
+              <div key={key} className="accordion-item">
+                <div className="accordion-title" onClick={() => toggleKey(key)}>
+                  <span className="accordion-arrow">{expandedKeys[key] ? '▲' : '▼'}</span>
+                  <span className="accordion-key">{key.replace(/([a-z])([A-Z])/g, '$1 $2')}</span>
                 </div>
-              )}
-            </div>
-          ))}
-        </div>
+                {expandedKeys[key] && (
+                  <div className="accordion-content">
+                    {formatValue(value)}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+
+          <div className="run-button-wrapper">
+            <button
+              className="run-actor-button"
+              onClick={handleRunActor}
+              disabled={running}
+            >
+              {running ? 'Running...' : '▶️ Run Actor'}
+            </button>
+          </div>
+        </>
       ) : (
         <p>Loading actor details...</p>
       )}

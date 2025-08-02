@@ -4,9 +4,15 @@ import { useNavigate } from 'react-router-dom';
 
 const TokenPage = () => {
   const [token, setToken] = useState('');
+  const [errorMsg, setErrorMsg] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
+    if (!token.trim()) {
+      setErrorMsg('API token cannot be empty');
+      return;
+    }
+
     try {
       await axios.post(
         'http://localhost:5000/api/auth/user/api-token',
@@ -16,10 +22,11 @@ const TokenPage = () => {
           headers: { 'Content-Type': 'application/json' },
         }
       );
+      setErrorMsg('');
       navigate('/actors');
     } catch (error) {
       console.error(error);
-      alert('Token submission failed.');
+      setErrorMsg('Token submission failed. Please check your token.');
     }
   };
 
@@ -33,6 +40,7 @@ const TokenPage = () => {
           value={token}
           onChange={(e) => setToken(e.target.value)}
         />
+        {errorMsg && <p style={{ color: 'red', marginTop: '8px' }}>{errorMsg}</p>}
         <button onClick={handleSubmit}>Continue</button>
       </div>
     </div>

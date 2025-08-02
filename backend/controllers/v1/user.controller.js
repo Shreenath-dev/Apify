@@ -79,3 +79,51 @@ export const getActor = async (req, res) => {
   }
 };
 
+export const defaultActor = async (req, res) => {
+  try {
+    const { params, cookies } = req;
+
+    if (!params.actorId) {
+      return res.status(400).json({ success: false, message: "Missing actorId in URL" });
+    }
+
+    if (!cookies.api_token) {
+      return res.status(401).json({ success: false, message: "Missing API token in cookies" });
+    }
+
+    const uri = `https://api.apify.com/v2/acts/${params.actorId}/run-sync`;
+
+    const requestData = JSON.stringify({
+      
+        url: "https://app.apollo.io/#/people?sortByField=%5Bnone%5D&sortAscending=false&page=1&personLocations[]=United%20Kingdom"
+      
+    });
+
+    const defaults = {
+      method: 'post',
+      maxBodyLength: Infinity,
+      url: uri,
+      headers: { 
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${cookies.api_token}`
+      },
+      data: requestData
+    };
+
+    const response = await axios.request(defaults);
+    const data = response.data;
+
+    return res.status(200).json({
+      success: true,
+      message: "Actor run started successfully",
+      data: data,
+    });
+  } catch (err) {
+    console.error("Error running actor:", err.message);
+    return res.status(500).json({
+      success: false,
+      message: "Something went wrong",
+    });
+  }
+};
