@@ -4,6 +4,8 @@ import * as validation from "@/validations";
 import { limiter } from "@/security/limiter";
 
 const router = express.Router();
-router.route("/api-token").post(limiter, controller.auth.users.apiToken);
+router.route("/actor-list").get(limiter, controller.v1.users.getActorList);
+router.route("/actor/:actorId").get(limiter, controller.v1.users.getActor);
+
 
 export default router;
