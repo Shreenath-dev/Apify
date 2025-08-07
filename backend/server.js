@@ -39,6 +39,11 @@ console.log(`\x1b[95mSERVER IP: ${serverIP}`);
 
 iot.get("/", (req, res) => res.json({ status: "UP", message: "Server runs" }));
 iot.use("/api", routes);
+iot.post("/test", (req, res) => {
+  res.json({ success: true });
+});
+
+
 
 const server = http.createServer(iot);
 
