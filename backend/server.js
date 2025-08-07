@@ -42,15 +42,13 @@ iot.use("/api", routes);
 
 const server = http.createServer(iot);
 
-databaseConnect((isConnect) => {
-  if (isConnect) {
+
     server.listen(config.PORT, () => {
       /* Initialize Socket Here*/
       console.log(`\x1b[33mServer runs in port ${config.PORT}...`);
       console.log(`\x1b[38;5;201mAPI HOST - http://${serverIP}:${config.PORT} or http://127.0.0.1:${config.PORT} or ${config.API_HOST} \n`);
     });
-  }
-});
+ 
 
 module.exports = server;
 
