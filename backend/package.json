@@ -4,9 +4,8 @@
   "description": "This is Demo",
   "main": "server.js",
   "scripts": {
-    "start": "node executable.js",                   
-    "dev": "node --watch --env-file=local.env executable.js",  
     "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node --watch --env-file=local.env executable.js",
     "format:lint": "prettier --check .",
     "lint": "eslint .",
     "format": "prettier --write --list-different ."
